@@ -81,7 +81,6 @@ body{
     right: -100px;
 	bottom: 8%;
     animation: move-obstacle 2.5s linear;
-    animation-play-state: paused;
 }
 .menu{
     position: absolute;
