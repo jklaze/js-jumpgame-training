@@ -10,7 +10,6 @@ const final_score = document.querySelector('#final-score');
 const player = document.querySelector('#player');
 
 let current_obstacle = document.querySelector('.obstacle');
-current_obstacle.style.animationPlayState = 'paused';
 let score;
 let respawn_millis;
 let step;
