@@ -77,8 +77,8 @@ body{
 .obstacle{
 	position: absolute;
     width: 80px;
-	z-index: 20;
-    right: -80px;
+	z-index: 15;
+    right: -100px;
 	bottom: 8%;
     animation: move-obstacle 2.5s linear;
 }
@@ -94,7 +94,7 @@ body{
 
 @keyframes move-obstacle{
     0%{
-        right: -80px;
+        right: -100px;
     }
     100%{
         right: 100%;
