@@ -1,8 +1,8 @@
 let container = document.querySelector(".container");
-//
+
 let ScoreElement = document.getElementById("score");
 var Score = 0;
-//
+
 var enemyPosition = 6;
 var prewEnemyPosition;
 
@@ -16,7 +16,7 @@ function BoardGame() {
     container.innerHTML = "";
 
     Matrix.forEach((row, rowIndex) => {
-        row.forEach((column, columnIndex) => {
+        row.forEach((column) => {
             let element = document.createElement("div");
             element.classList.add("element");
             container.appendChild(element);
@@ -63,12 +63,10 @@ function characters(column, element, rowIndex) {
 
 function Pikachu(element, rowIndex) {
     let img = document.createElement("img");
-
-    rowIndex === 1 ? element.classList.add("sky") : element.classList.add("Darkgrass");
-
     img.src = "images/pikachu.gif";
     img.style.width = "100px";
     img.style.height = "100px";
+    rowIndex === 1 ? element.classList.add("sky") : element.classList.add("Darkgrass");
     element.appendChild(img);
 }
 
@@ -98,7 +96,7 @@ function jump() {
             PikachuRowPosition.splice(1, 1, 3);
             let PikachuRowUpperPosition = Matrix[Matrix.length - 2];
             PikachuRowUpperPosition.splice(1, 1, 4);
-            setTimeout(jumpdown, 2000);
+            setTimeout(jumpdown, 1300);
         }
     });
 }
@@ -106,27 +104,26 @@ function jump() {
 function jumpdown() {
     let PikachuRowPosition = Matrix[Matrix.length - 1];
     PikachuRowPosition.splice(1, 1, 4);
-    //
+    
     let PikachuRowUpperPosition = Matrix[Matrix.length - 2];
     PikachuRowUpperPosition.splice(1, 1, 6);
 }
 
 function GameOver() {
     let lastRow = Matrix[Matrix.length - 1];
-
     let PikachuRowUpperPosition = Matrix[Matrix.length - 2];
-    if (!lastRow.includes(4) && !PikachuRowUpperPosition.includes(4)) {
-        clearInterval(gameInterval);
-    }
+    if (!lastRow.includes(4) && !PikachuRowUpperPosition.includes(4))  clearInterval(gameInterval);
+
+}
+
+function score() {
+    Score++;
+    ScoreElement.innerText = "Score: " + Score;
 }
 
 function game() {
-    Score++;
-    ScoreElement.innerText = "Score: " + Score;
-    
+    score();
     enemySpawn();
-
-
     BoardGame();
 }
 
