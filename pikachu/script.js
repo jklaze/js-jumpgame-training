@@ -12,7 +12,7 @@ let Matrix = [
     [3, 4, 3, 3, 3, 3, 3],
 ];
 
-function BoardGame() {
+function boardGame() {
     container.innerHTML = "";
 
     Matrix.forEach((row, rowIndex) => {
@@ -26,7 +26,7 @@ function BoardGame() {
 
         });
     });
-    GameOver();
+    gameOver();
 }
 
 function ambience(column, element) {
@@ -57,11 +57,11 @@ function cloud(element){
 
 
 function characters(column, element, rowIndex) {
-    if (column === 4) Pikachu(element, rowIndex);
+    if (column === 4) pikachu(element, rowIndex);
     if (column === 5) enemy(element);
 }
 
-function Pikachu(element, rowIndex) {
+function pikachu(element, rowIndex) {
     let img = document.createElement("img");
     img.src = "images/pikachu.gif";
     img.style.width = "100px";
@@ -109,7 +109,7 @@ function jumpdown() {
     PikachuRowUpperPosition.splice(1, 1, 6);
 }
 
-function GameOver() {
+function gameOver() {
     let lastRow = Matrix[Matrix.length - 1];
     let PikachuRowUpperPosition = Matrix[Matrix.length - 2];
     if (!lastRow.includes(4) && !PikachuRowUpperPosition.includes(4))  clearInterval(gameInterval);
@@ -124,7 +124,7 @@ function score() {
 function game() {
     score();
     enemySpawn();
-    BoardGame();
+    boardGame();
 }
 
 let gameInterval = setInterval(game, 600);
