@@ -1,1 +1,1 @@
-Live: https://jklaze.github.io/js-jumpgame-training/
+Live: https://jklaze.github.io/js-brankosaurus-training/
