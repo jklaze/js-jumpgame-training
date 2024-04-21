@@ -4,8 +4,9 @@ const game_over = document.querySelector('#game-over');
 const start_button = document.querySelector('#start-button');
 const resume_button = document.querySelector('#resume-button');
 const retry_button = document.querySelector('#retry-button');
-const final_score = document.querySelector('#final-score');
+const countdown_text = document.querySelector('#countdown');
 const current_score = document.querySelector('#score');
+const final_score = document.querySelector('#final-score');
 const player = document.querySelector('#player');
 
 let score;
@@ -24,7 +25,7 @@ function startGame() {
     current_score.textContent = score;
     respawn_millis = 2500;
     step = 100;
-    spawnObstacle(); // Spawn first obstacle
+    current_obstacle = document.querySelector('.obstacle');
     resumeGame();
 }
 function pauseGame() {
@@ -38,12 +39,29 @@ function pauseGame() {
 }
 function resumeGame() {
     pause_menu.classList.add('hidden');
-    player.style.animationPlayState = 'running';
-    current_obstacle.style.animationPlayState = 'running';
+    showCountdown();
+    setTimeout(() => {
+        player.style.animationPlayState = 'running';
+        current_obstacle.style.animationPlayState = 'running';
+    }, 3000);
     spawnInterval = setInterval(spawnObstacle, respawn_millis);
     collisionInterval = setInterval(checkCollision, 10);
     scoreCheckInterval = setInterval(checkScore, 10);
     cleanInterval = setInterval(cleanObstacle, 1000);
+}
+
+function showCountdown() {
+    let countdown = 3;
+    countdown_text.classList.remove('hidden');
+    const countdownInterval = setInterval(() => {
+        if (countdown === 0) {
+            countdown_text.classList.add('hidden');
+            clearInterval(countdownInterval);
+        } else {
+            countdown_text.textContent = countdown;
+            countdown--;
+        }
+    }, 1000);
 }
 
 function jump() {
@@ -109,6 +127,11 @@ start_button.addEventListener('click', startGame);
 resume_button.addEventListener('click', resumeGame);
 retry_button.addEventListener('click', retry);
 window.addEventListener('mousedown', jump);
+window.addEventListener('blur', function() {
+    if (pause_menu.classList.contains('hidden') && game_over.classList.contains('hidden') && home.classList.contains('hidden')){
+        pauseGame();
+    }
+});
 window.addEventListener('keydown', function(e) {
     if ((e.key === ' ' || e.key === 'ArrowUp') && !player.classList.contains('hop')){
         jump();
@@ -122,7 +145,7 @@ window.addEventListener('keydown', function(e) {
     if (e.key === 'Enter' && !pause_menu.classList.contains('hidden')) {
         resumeGame();
     }
-    if (e.key === 'Escape' && pause_menu.classList.contains('hidden')) {
+    if (e.key === 'Escape' && pause_menu.classList.contains('hidden') && game_over.classList.contains('hidden') && home.classList.contains('hidden')) {
         pauseGame();
     }
 });
