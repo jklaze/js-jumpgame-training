@@ -11,7 +11,8 @@ const player = document.querySelector('#player');
 
 let current_obstacle = document.querySelector('.obstacle');
 let score;
-let respawn_millis;
+let shark_speed;
+let spawn_speed;
 let step;
 
 let spawnInterval;
@@ -23,7 +24,8 @@ function startGame() {
     home.classList.add('hidden');
     score = 0;
     current_score.textContent = score;
-    respawn_millis = 2500;
+    shark_speed = 2500;
+    spawn_speed = 2500;
     step = 100;
     resumeGame();
 }
@@ -42,7 +44,7 @@ function resumeGame() {
     setTimeout(() => {
         player.style.animationPlayState = 'running';
         current_obstacle.style.animationPlayState = 'running';
-        spawnInterval = setInterval(spawnObstacle, respawn_millis);
+        spawnInterval = setInterval(spawnObstacle, spawn_speed);
         collisionInterval = setInterval(checkCollision, 10);
         scoreCheckInterval = setInterval(checkScore, 10);
         cleanInterval = setInterval(cleanObstacle, 1000);
@@ -95,10 +97,10 @@ function spawnObstacle() {
     obstacle.src = 'images/shark.png';
     obstacle.classList.add('obstacle');
     document.querySelector('#container').appendChild(obstacle);
-    obstacle.style.animationDuration = `${respawn_millis / 1000}s`;
+    obstacle.style.animationDuration = `${shark_speed / 1000}s`;
     current_obstacle = obstacle;
-    if (respawn_millis > 1000) {
-        respawn_millis = respawn_millis - step;
+    if (shark_speed > 1000) {
+        shark_speed = shark_speed - step;
     }
 }
 function checkCollision() {
