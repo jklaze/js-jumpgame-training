@@ -9,10 +9,11 @@ const current_score = document.querySelector('#score');
 const final_score = document.querySelector('#final-score');
 const player = document.querySelector('#player');
 
+let current_obstacle = document.querySelector('.obstacle');
+current_obstacle = current_obstacle.style.animationPlayState = 'paused';
 let score;
 let respawn_millis;
 let step;
-let current_obstacle;
 
 let spawnInterval;
 let collisionInterval;
@@ -25,7 +26,6 @@ function startGame() {
     current_score.textContent = score;
     respawn_millis = 2500;
     step = 100;
-    current_obstacle = document.querySelector('.obstacle');
     resumeGame();
 }
 function pauseGame() {
@@ -43,15 +43,16 @@ function resumeGame() {
     setTimeout(() => {
         player.style.animationPlayState = 'running';
         current_obstacle.style.animationPlayState = 'running';
-    }, 3000);
-    spawnInterval = setInterval(spawnObstacle, respawn_millis);
-    collisionInterval = setInterval(checkCollision, 10);
-    scoreCheckInterval = setInterval(checkScore, 10);
-    cleanInterval = setInterval(cleanObstacle, 1000);
+        spawnInterval = setInterval(spawnObstacle, respawn_millis);
+        collisionInterval = setInterval(checkCollision, 10);
+        scoreCheckInterval = setInterval(checkScore, 10);
+        cleanInterval = setInterval(cleanObstacle, 1000);
+    }, 2500);
 }
 
 function showCountdown() {
     let countdown = 3;
+    countdown_text.textContent = countdown;
     countdown_text.classList.remove('hidden');
     const countdownInterval = setInterval(() => {
         if (countdown === 0) {
@@ -61,7 +62,7 @@ function showCountdown() {
             countdown_text.textContent = countdown;
             countdown--;
         }
-    }, 1000);
+    }, 800);
 }
 
 function jump() {
