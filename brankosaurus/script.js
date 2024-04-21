@@ -1,6 +1,8 @@
 const home = document.querySelector('#home');
-const start_button = document.querySelector('#start-button');
+const pause_menu = document.querySelector('#pause');
 const game_over = document.querySelector('#game-over');
+const start_button = document.querySelector('#start-button');
+const resume_button = document.querySelector('#resume-button');
 const retry_button = document.querySelector('#retry-button');
 const final_score = document.querySelector('#final-score');
 const current_score = document.querySelector('#score');
@@ -22,8 +24,22 @@ function startGame() {
     current_score.textContent = score;
     respawn_millis = 2500;
     step = 100;
-    spawnObstacle();
-
+    spawnObstacle(); // Spawn first obstacle
+    resumeGame();
+}
+function pauseGame() {
+    pause_menu.classList.remove('hidden');
+    player.style.animationPlayState = 'paused';
+    current_obstacle.style.animationPlayState = 'paused';
+    clearInterval(spawnInterval);
+    clearInterval(collisionInterval);
+    clearInterval(scoreCheckInterval);
+    clearInterval(cleanInterval);
+}
+function resumeGame() {
+    pause_menu.classList.add('hidden');
+    player.style.animationPlayState = 'running';
+    current_obstacle.style.animationPlayState = 'running';
     spawnInterval = setInterval(spawnObstacle, respawn_millis);
     collisionInterval = setInterval(checkCollision, 10);
     scoreCheckInterval = setInterval(checkScore, 10);
@@ -35,7 +51,6 @@ function jump() {
     setTimeout(() => {
         player.classList.remove('hop');
     }, 800);
-    console.log('jump');
 }
 
 // Game functions
@@ -91,10 +106,23 @@ function cleanObstacle() {
 }
 
 start_button.addEventListener('click', startGame);
+resume_button.addEventListener('click', resumeGame);
 retry_button.addEventListener('click', retry);
 window.addEventListener('mousedown', jump);
 window.addEventListener('keydown', function(e) {
-    if (e.key === ' ' || e.key === 'ArrowUp') {
+    if ((e.key === ' ' || e.key === 'ArrowUp') && !player.classList.contains('hop')){
         jump();
+    }
+    if (e.key === 'Enter' && !home.classList.contains('hidden')) {
+        startGame();
+    }
+    if (e.key === 'Enter' && !game_over.classList.contains('hidden')) {
+        retry();
+    }
+    if (e.key === 'Enter' && !pause_menu.classList.contains('hidden')) {
+        resumeGame();
+    }
+    if (e.key === 'Escape' && pause_menu.classList.contains('hidden')) {
+        pauseGame();
     }
 });
