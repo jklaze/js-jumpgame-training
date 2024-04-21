@@ -47,7 +47,7 @@ function resumeGame() {
         collisionInterval = setInterval(checkCollision, 10);
         scoreCheckInterval = setInterval(checkScore, 10);
         cleanInterval = setInterval(cleanObstacle, 1000);
-    }, 2500);
+    }, 2400);
 }
 
 function showCountdown() {
