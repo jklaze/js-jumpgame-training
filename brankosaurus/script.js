@@ -47,7 +47,7 @@ function resumeGame() {
         collisionInterval = setInterval(checkCollision, 10);
         scoreCheckInterval = setInterval(checkScore, 10);
         cleanInterval = setInterval(cleanObstacle, 1000);
-    }, 2000);
+    }, 2500);
 }
 
 function showCountdown() {
@@ -55,14 +55,14 @@ function showCountdown() {
     countdown_text.textContent = countdown;
     countdown_text.classList.remove('hidden');
     const countdownInterval = setInterval(() => {
-        if (countdown === 0) {
+        if (countdown === 1) {
             countdown_text.classList.add('hidden');
             clearInterval(countdownInterval);
         } else {
-            countdown_text.textContent = countdown;
             countdown--;
+            countdown_text.textContent = countdown;
         }
-    }, 500);
+    }, 700);
 }
 
 function jump() {

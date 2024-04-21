@@ -80,7 +80,7 @@ body{
 	z-index: 20;
     right: -80px;
 	bottom: 8%;
-    animation: move-obstacle 2.5s ease-in;
+    animation: move-obstacle 2.5s linear;
 }
 .menu{
     position: absolute;
