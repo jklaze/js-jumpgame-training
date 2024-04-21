@@ -10,7 +10,7 @@ const final_score = document.querySelector('#final-score');
 const player = document.querySelector('#player');
 
 let current_obstacle = document.querySelector('.obstacle');
-current_obstacle = current_obstacle.style.animationPlayState = 'paused';
+current_obstacle.style.animationPlayState = 'paused';
 let score;
 let respawn_millis;
 let step;
@@ -47,7 +47,7 @@ function resumeGame() {
         collisionInterval = setInterval(checkCollision, 10);
         scoreCheckInterval = setInterval(checkScore, 10);
         cleanInterval = setInterval(cleanObstacle, 1000);
-    }, 2400);
+    }, 2000);
 }
 
 function showCountdown() {
@@ -62,7 +62,7 @@ function showCountdown() {
             countdown_text.textContent = countdown;
             countdown--;
         }
-    }, 800);
+    }, 500);
 }
 
 function jump() {
